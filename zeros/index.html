@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Zeros</title>
+	<meta name="generator" content="BBEdit 10.1" />
+</head>
+<body bgcolor="#000000">
+<center>
+<div style= "font-family:pt sans">
+	<font color="blue" size="100">
+		<b>
+		// Header
+		Welcome to zeros!
+		<p>Type "0" or click the one below!</p>
+		</b>
+	</font>
+</div>
+</center>
+</body>
+</html>
+<style>
+	canvas{border: 0.5px solid #bbb;}
+	.subdiv{width: 320px;}
+	.text{margin: auto; width: 290px;}
+</style>
+ 
+<script type="text/javascript">
+    	var count = 0;
+       	var can, ctx, step, steps = 0,
+              delay = 20;
+ 
+        function init() {
+        	count++;
+        	display();
+            can = document.getElementById("MyCanvas1");
+            ctx = can.getContext("2d");
+            ctx.fillStyle = "blue";
+            ctx.font = "20pt Pt Sans";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            step = can.height;
+            steps = -50;
+            RunTextRightToLeft();
+        }
+ 
+        function RunTextRightToLeft() {
+            step-= 5;
+            ctx.clearRect(0, 0, can.width, can.height);
+            ctx.save();
+            ctx.translate(can.width / 2, step);
+            ctx.fillText("+1", 150, 0);
+            ctx.restore();
+            if (step > steps)
+                var t = setTimeout('RunTextRightToLeft()', delay);
+        }
+ 
+    </script>
+<html>
+<body>
+    <div class="subdiv">
+        <canvas id="MyCanvas1" width="950" height="50">
+  This browser or document mode doesn't support canvas object</canvas>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+window.addEventListener("keydown", checkKeyPressed, false);
+ 
+function checkKeyPressed(e) {
+    if (e.keyCode == "48") {
+        init();
+    }
+}
+</script>
+<p id="demo"></p>
+<html>
+	<center>
+		<div style= "font-family:pt sans">
+			<font color="blue" size="100">
+				<h1 onclick=init();>
+				0
+				</h1>
+			<script>
+				function display(e){
+				//document.getElementById("demo").style.color = "blue";
+				//document.getElementById("demo").font = "pt sans";
+				document.getElementById("boldStuff").innerHTML = count;
+				}
+			</script>
+			<p>You have made <b id="boldStuff">0</b> zeros!</p>
+			</font>
+		</div>
+	</center>
+</html>
