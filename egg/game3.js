@@ -22,7 +22,7 @@ egg.prototype.run = function() {
     this.speedY += 0.2
     this.rotation += this.rotationSpeed/3;
     this.rotationSpeed *= 0.99;
-    if (this.y > screenWidth) {
+    if (this.y > screenHeight) {
         this.x = random(0,screenWidth);
         this.y = random(-100,-9000);
         this.speedX = random(-2,2);
