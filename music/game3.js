@@ -2,6 +2,8 @@ void setup(){
     size(2750,1350);
     frameRate(600);
     loop()
+    introFrame = 0;
+    imageFlip = 0;
 };
 
 
@@ -20,13 +22,10 @@ void setup(){
 //    snowClones.push(tmp);
 //}
 
-var introFrame = 0;
-
 var img = loadImage("");
 
 
 var img2 = loadImage("tillvit.png");
-var imageFlip = 0;
 var entr = 0;
 var fps = 0;
 var check = second();
