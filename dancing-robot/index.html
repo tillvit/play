@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Music Visualizer - Tillvit</title>
+		<style>
+			div#mp3_player{ width:2700px; height:1px; background:#000; padding:5px; margin:50px auto; controls autoplay: true;}
+			div#mp3_player > div > audio{  width:2700px; background:#000; float:left; controls autoplay: true;}
+			div#mp3_player > canvas{ width:2700px; height:1px; background:#000000; float:left; }
+            @font-face{ 
+	           font-family: 'Prototype';
+	           src: url('Prototype.eot');
+	           src: url('Prototype.eot?#iefix') format('embedded-opentype'),
+	           url('prototype-webfont.woff') format('woff'),
+	           url('prototype-webfont.ttf') format('truetype'),
+	           url('prototype-webfont.svg#webfont') format('svg');
+            }
+		</style>
+        <script>
+            document.title = "Music Visualizer - Tillvit"
+        </script>
+		<script type="text/javascript" src="../resources/processing.js"></script>
+		<script>
+			//Frame: A set initial frame number for tillvit logo
+			var frame = -100
+			//tillvit list, list of tillvit
+			var tillvit = ["t","ti","til","till","tillv","tillvi","tillvit"]
+			//song name displayed on screen
+			var songName = "Space"
+			//author displayed on screen
+			var author = "Tillvit"
+			//empty list of snow clones
+			var snowClones = []
+			//num of bars
+			var bars = 200;
+			//color of bars (hex)
+			var barColor = "339999"
+			//variable for calculating total fbc_array
+			var fbctotal = 0;
+            //variable for calculating fbcminimun
+            var fbcminimum = 256;
+			//Img one
+			var imgOne = "tillvit.png"
+			//Img two
+			var imgTwo = "tillvit.png"
+			//Style
+			var style = [false,false,true,true,true]
+            //Intro & Img Counter
+            var introFrame = 0;
+            var imageFlip = 0;
+
+			// Create a new instance of an audio object and adjust some of its properties
+			var audio = new Audio();
+			//Sound file
+			audio.src = 'track6.mp3';
+			audio.controls = true;
+			audio.loop = true;
+			audio.autoplay = true;
+			// Establish all variables that your Analyser will use
+			var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+			//Function to change color luminance
+			function ColorLuminance(hex, lum) {
+
+				// validate hex string
+				hex = String(hex).replace(/[^0-9a-f]/gi, '');
+				if (hex.length < 6) {
+					hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+				}
+				lum = lum || 0;
+
+				// convert to decimal and change luminosity
+				var rgb = "#", c, i;
+				for (i = 0; i < 3; i++) {
+					c = parseInt(hex.substr(i*2,2), 16);
+					c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+					rgb += ("00"+c).substr(c.length);
+				}
+
+				return rgb;
+			}
+			// Initialize the MP3 player after the page loads all of its HTML into the window
+			window.addEventListener("load", initMp3Player, false);
+			function initMp3Player(){
+			//Create snow
+			snowClones = []
+
+			for(var i = 0; i < bars*3; i++){
+				var tmp = [-((Math.random()*100)),(Math.random())*1250,(Math.random()-0.5)*8,(Math.random()-0.5)*8]
+				snowClones.push(tmp)
+			}
+			console.log(snowClones)
+				document.getElementById('audio_box').appendChild(audio);
+				context = new webkitAudioContext(); // AudioContext object instance
+				analyser = context.createAnalyser(); // AnalyserNode method
+				// Re-route audio playback into the processing graph of the AudioContext
+				source = context.createMediaElementSource(audio); 
+				source.connect(analyser);
+				analyser.connect(context.destination);
+				frameLooper();
+			}
+			// frameLooper() animates any style of graphics you wish to the audio frequency
+			// Looping at the default frame rate that the browser provides(approx. 60 FPS)
+			function frameLooper(){
+				//Reset fbctotal and fbc minimum
+				fbctotal = 0
+                fbcminimum = 256;
+				window.webkitRequestAnimationFrame(frameLooper);
+				//Analyze frequencies
+				fbc_array = new Uint8Array(analyser.frequencyBinCount);
+				analyser.getByteFrequencyData(fbc_array);
+				//Calculate fbctotal
+				for(var i = 0; i< bars; i++){
+					fbctotal += fbc_array[i]
+                    if (fbcminimum > fbc_array[i]) {
+                        fbcminimum = fbc_array[i]
+                    }
+				}
+				//Draw and update snow
+				for(var i = 0; i< bars*3; i++){
+					snowClones[i][0] += snowClones[i][2]*(fbctotal/bars * Math.random()+0.5)/60
+					snowClones[i][1] += snowClones[i][3]*(fbctotal/bars * Math.random()+0.5)/60
+					if(snowClones[i][0] > 3000 || snowClones[i][1] < 0 || snowClones[i][1] > 1250){
+						snowClones[i] = [-((Math.random()*100)),(Math.random())*1250,(Math.random()-0.5)*8,(Math.random()-0.5)*8]
+					}
+			    }
+			}
+		</script>
+	</head>
+	<body>
+		<div id="mp3_player">
+			<div id="audio_box"></div>
+			<canvas id="analyser_render"></canvas>
+		</div>
+		<canvas id="game" data-processing-sources="game3.js"></canvas>
+        <br>
+        <button onclick="restart()">Restart Visualizer</button>
+		<h1>Input music:</h1><input type="file" id="music_uploads" name="music_uploads" accept=".mp3, .m4a, .wav" multiple>
+		<h1>Change song name</h1><input type="text" id="songChange" name="songChange"><button onclick="changeSongName()">Submit</button>
+		<h1>Change author name</h1><input type="text" id="authorChange" name="authorChange"><button onclick="changeAuthorName()">Submit</button>
+		<h1>Want to change the pictures? go to game3.js and edit the paths!</h1>
+		<br>
+		Red
+		<input type="range" min="0" max="153" value="51" class="slider" id="red" style="width:50%">
+		<br>Green=
+		<input type="range" min="0" max="153" value="153" class="slider" id="green" style="width:50%">
+		<br>Blue
+	    	<input type="range" min="0" max="153" value="153" class="slider" id="blue" style="width:50%">
+	   	<br>Show bar
+	    	<input id="bar" type="checkbox">Draw Snow
+	    	<input id="snow" type="checkbox" checked=true>Draw Picture
+	    	<input id="picture" type="checkbox" checked=true>
+	    	<script>
+			var inputMusic = document.getElementById('music_uploads');
+			var red = document.getElementById('red');
+			var green = document.getElementById('green');
+			var blue = document.getElementById('blue');
+			var bar = document.getElementById('bar');
+			var snow = document.getElementById('snow');
+			var picture = document.getElementById('picture');
+			
+			inputMusic.addEventListener('change', updateMusic);
+			red.addEventListener('change', changeColor);
+			green.addEventListener('change', changeColor);
+			blue.addEventListener('change', changeColor);
+			bar.addEventListener('change', styleChange);
+			snow.addEventListener('change', styleChange);
+			picture.addEventListener('change', styleChange);
+
+			function styleChange(){
+		    		style = [bar.checked,false,false,snow.checked,picture.checked]
+			}
+
+			function changeColor(){
+		    		barColor = ""
+		    		var temp = Math.floor(parseInt(red.value)/16)
+				barColor = barColor + temp.toString()
+		    		temp = (parseInt(red.value)%16)
+		    		if (temp > 9) {
+					temp = 9
+		    		}
+		    		barColor = barColor + temp.toString()
+		    		temp = Math.floor(parseInt(green.value)/16)
+		    		barColor = barColor + temp.toString()
+		    		temp = (parseInt(green.value)%16)
+		    		if (temp > 9) {
+					temp = 9
+		    	}
+		    	barColor = barColor + temp.toString()
+		    	temp = Math.floor(parseInt(blue.value)/16)
+			barColor = barColor + temp.toString()
+		    	temp = (parseInt(blue.value)%16)
+		    	if (temp > 9) {
+				temp = 9
+		    	}
+		    	barColor = barColor + temp.toString()
+		    	console.log(barColor)
+			}
+
+			function changeSongName(){
+		    	songName = document.getElementById("songChange").value;
+			}
+
+			function changeAuthorName(){
+		  		author = document.getElementById("authorChange").value;
+			}
+
+			function updateMusic(){
+		    		if ((inputMusic.files[inputMusic.files.length-1].type == "audio/mpeg" || inputMusic.files[inputMusic.files.length-1].type == "audio/x-m4a" || inputMusic.files[inputMusic.files.length-1].type == "audio/ogg") != true){
+					return
+		    		}
+				audio.src = window.URL.createObjectURL(inputMusic.files[inputMusic.files.length-1]);
+		    		songName = inputMusic.files[inputMusic.files.length-1].name
+		    		var period = false
+		    		var temp = ""
+		    		for (var i = songName.length-1; i > -1; i--) {
+					if (period) {
+			    			temp = songName[i] + temp
+					}
+					if (songName[i] == ".") {
+			    			period = true
+					}
+					console.log(temp)
+		    		}
+		   		songName = temp
+		    		author = "Uploaded"
+			}
+            function restart(){
+                var tmp = audio.src
+                audio.src = ""
+                audio.src = tmp
+                introFrame = 0
+                imgFrame = 0
+            }
+		</script>
+	</body>
+</html>
