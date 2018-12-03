@@ -49,24 +49,19 @@ void draw() {
             }
         }
         if (style[0] == true) {
+            threshold = (((fbctotal/bars) + fbcminimum)/2);
             for (var i = 0; i < bars; i++) {
-                if (style[2] == true) {
-                    fill(((barColor[0]*16)+barColor[1]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))*(1/(255/(fbc_array[i])))),((barColor[2]*16)+barColor[3]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))*(1/(255/(fbc_array[i])))),((barColor[4]*16)+barColor[5]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))));
-                }else{
-                    fill((barColor[0]*16)+barColor[1]*1,(barColor[2]*16)+barColor[3]*1,(barColor[3]*16)+barColor[4]*1)
-                }
-                /*fill(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));*/
+                if (style[0] == true) {
+                fill((barColor[0]*16)+barColor[1]*1,(barColor[2]*16)+barColor[3]*1,(barColor[3]*16)+barColor[4]*1);
+                         /*fill(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));*/
                 rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
-            }
-            for (var i = 0; i < bodyPartTotal.length; i++){
-                bodyPartTotal[i] /= (bars/bodyPartTotal.length)
-                fill(0,255,0,100);
-                stroke(0,255,0,125);
-                if (bodyPartTotal[i] > 0 && style[0] == true){
-                    rect(i*(bars/bodyPartTotal.length) * 2750/bars,750-(561*bodyPartTotal[i]),2750/bars * (bars/bodyPartTotal.length),(561*bodyPartTotal[i]));
+                fill(255,0,0,100);
+                if ((561*(fbc_array[i]-threshold)/(255-threshold)) < 0){
+                }else{
+                    rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,561*(fbc_array[i]-threshold)/(255-threshold));
                 }
-                if (bodyPartTotal[i] < 0) {
-                    bodyPartTotal[i] = 0;
+                fill(255,255,255);
+                rect(0,750-(561*threshold/255),2750,10)
                 }
             }
         }
