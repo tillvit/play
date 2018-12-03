@@ -58,6 +58,17 @@ void draw() {
                 /*fill(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));*/
                 rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
             }
+            for (var i = 0; i < bodyPartTotal.length; i++){
+                bodyPartTotal[i] /= (bars/bodyPartTotal.length)
+                fill(0,255,0,100);
+                stroke(0,255,0,125);
+                if (bodyPartTotal[i] > 0 && style[0] == true){
+                    rect(i*(bars/bodyPartTotal.length) * 2750/bars,750-(561*bodyPartTotal[i]),2750/bars * (bars/bodyPartTotal.length),(561*bodyPartTotal[i]));
+                }
+                if (bodyPartTotal[i] < 0) {
+                    bodyPartTotal[i] = 0;
+                }
+            }
         }
         if (style[1] == true) {
             noFill();
