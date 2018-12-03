@@ -58,7 +58,7 @@ void draw() {
                 fill(255,0,0,100);
                 if ((561*(fbc_array[i]-threshold)/(255-threshold)) < 0){
                 }else{
-                    rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,561*(fbc_array[i]-threshold)/(255-threshold));
+                    rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,561*(fbc_array[i]-threshold)/(255-threshold)*(threshold/255));
                 }
                 fill(255,255,255);
                 rect(0,750-(561*threshold/255),2750,10)
