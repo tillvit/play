@@ -44,6 +44,7 @@
 			var style = [true,false,true,true,true]
 			//fbcminimum
 			var fbcmininum = 256
+			var fbcmaximum = 0
             //Intro & Img Counter
             var introFrame = 0;
             var imageFlip = 0;
@@ -103,6 +104,7 @@
 				//Reset fbctotal
 				fbctotal = 0
 				fbcminimum = 256;
+				fbcminimum = 0;
 				window.webkitRequestAnimationFrame(frameLooper);
 				//Analyze frequencies
 				fbc_array = new Uint8Array(analyser.frequencyBinCount);
@@ -112,6 +114,9 @@
 					fbctotal += fbc_array[i]
 					if (fbcminimum > fbc_array[i]) {
                         fbcminimum = fbc_array[i]
+					}
+						if (fbcmaximum < fbc_array[i]) {
+                        fbcmaximum = fbc_array[i]
                     }
 
 				}
