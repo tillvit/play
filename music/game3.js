@@ -53,7 +53,7 @@ void draw() {
             for (var i = 0; i < bars; i++) {
                 if (style[0] == true) {
                          if (style[2] == true) {
-                    fill(((barColor[0]*16)+barColor[1]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))*(1/(255/(fbc_array[i])))),((barColor[2]*16)+barColor[3]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))*(1/(255/(fbc_array[i])))),((barColor[4]*16)+barColor[5]*1)*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i])))*(1/(255/(fbc_array[i]))));
+                    fill(((barColor[0]*16)+barColor[1]*1)*(1/(threshold/(fbc_array[i])))*(1/(threshold/(fbc_array[i]))*(1/(threshold/(fbc_array[i])))),((barColor[2]*16)+barColor[3]*1)*(1/(threshold/(fbc_array[i])))*(1/(threshold/(fbc_array[i]))*(1/(threshold/(fbc_array[i])))),((barColor[4]*16)+barColor[5]*1)*(1/(threshold/(fbc_array[i])))*(1/(threshold/(fbc_array[i])))*(1/(threshold/(fbc_array[i]))));
                 }else{
                     fill((barColor[0]*16)+barColor[1]*1,(barColor[2]*16)+barColor[3]*1,(barColor[3]*16)+barColor[4]*1)
                 }
