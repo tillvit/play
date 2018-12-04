@@ -55,7 +55,6 @@ void draw() {
                 fill((barColor[0]*16)+barColor[1]*1,(barColor[2]*16)+barColor[3]*1,(barColor[3]*16)+barColor[4]*1);
                          /*fill(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));*/
                 //rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
-                fill(255,0,0,100);
                 if ((561*(fbc_array[i]-threshold)/(255-threshold)) < 0){
                 }else{
                     rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold))*(threshold/255),2750/bars * 0.7,(561*(fbc_array[i]-threshold)/(255-threshold))*(threshold/255));
@@ -79,21 +78,7 @@ void draw() {
                 else{
                     var x = ((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3;
                 }
-                vertex(i * 2750/bars,750-(x*2.3))
-            }
-            endShape();
-
-
-            stroke(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));
-            beginShape();
-            for (var i = 0; i < bars; i++) {
-                if(i == 0 || i == bars-1){
-                    var x = (fbc_array[i]);
-                }
-                else{
-                    var x = ((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3;
-                }
-                vertex(i * 2750/bars,750+(x*0.3))
+                vertex(i * 2750/bars,750-(x*2.3)*(threshold/255))
             }
             endShape();
         }
