@@ -33,7 +33,7 @@
 			//num of bars
 			var bars = 200;
 			//color of bars (hex)
-			var barColor = 994455"
+			var barColor = "994455"
 			//variable for calculating total fbc_array
 			var fbctotal = 0;
 			//Img one
@@ -83,7 +83,7 @@
 			//Create snow
 			snowClones = []
 
-			for(var i = 0; i < bars*3; i++){
+			for(var i = 0; i < bars*7; i++){
 				var tmp = [-((Math.random()*100)),(Math.random())*1250,(Math.random()-0.5)*8,(Math.random()-0.5)*8]
 				snowClones.push(tmp)
 			}
@@ -116,7 +116,7 @@
 
 				}
 				//Draw and update snow
-				for(var i = 0; i< bars*3; i++){
+				for(var i = 0; i< bars*7; i++){
 					snowClones[i][0] += snowClones[i][2]*(fbctotal/bars * Math.random()+0.5)/60
 					snowClones[i][1] += snowClones[i][3]*(fbctotal/bars * Math.random()+0.5)/60
 					if(snowClones[i][0] > 3000 || snowClones[i][1] < 0 || snowClones[i][1] > 1250){
