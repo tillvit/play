@@ -63,7 +63,7 @@ void draw() {
                     rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,(561*(fbc_array[i]-threshold)/(255-threshold)));
                 }*/
                     rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,(561*(fbc_array[i]-threshold)/(255-threshold)));
-                fill(255,255,255);
+                fill(255,255,255,50);
                 rect(0,750-(561*threshold/255),2750,10)
                     rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
                 }
