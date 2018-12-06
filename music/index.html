@@ -216,9 +216,9 @@
 			}
 
 			function updateMusic(){
-		    		if ((inputMusic.files[inputMusic.files.length-1].type == "audio/mpeg" || inputMusic.files[inputMusic.files.length-1].type == "audio/x-m4a" || inputMusic.files[inputMusic.files.length-1].type == "audio/ogg") != true){
+		    		/*if ((inputMusic.files[inputMusic.files.length-1].type == "audio/mpeg" || inputMusic.files[inputMusic.files.length-1].type == "audio/x-m4a" || inputMusic.files[inputMusic.files.length-1].type == "audio/ogg") != true){
 					return
-		    		}
+		    		}*/
 				audio.src = window.URL.createObjectURL(inputMusic.files[inputMusic.files.length-1]);
 		    		songName = inputMusic.files[inputMusic.files.length-1].name
 		    		var period = false
