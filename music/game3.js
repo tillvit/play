@@ -53,14 +53,14 @@ void draw() {
             for (var i = 0; i < bars; i++) {
                 if (style[0] == true) {
                     fill((barColor[0]*16)+barColor[1]*1,(barColor[2]*16)+barColor[3]*1,(barColor[3]*16)+barColor[4]*1);
-                    rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
-                    fill(255,0,0,100);
+                    //rect(i * 2750/bars,750-(fbc_array[i]*2.2),2750/bars * 0.7,fbc_array[i]*2.2);
+                    //fill(255,0,0,100);
                     if ((561*(fbc_array[i]-threshold)/(255-threshold)) < 0){
                     }else{
                         rect(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)),2750/bars * 0.7,561*(fbc_array[i]-threshold)/(255-threshold));
                     }
                     fill(255,255,255);
-                    rect(0,750-(561*threshold/255),2750,10)
+                    rect(0,750,2750,10)
                 }
             }
         }
