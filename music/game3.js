@@ -76,7 +76,7 @@ void draw() {
             stroke(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));
             beginShape();
             for (var i = 0; i < bars; i++) {
-                if (561*(fbc_array[i]-threshold)/(255-threshold)) < 0 {
+                if ((561*(fbc_array[i]-threshold)/(255-threshold)) < 0) {
                     vertex(i * 2750/bars,750)
                 }else{
                     vertex(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)))
