@@ -72,13 +72,7 @@ void draw() {
             stroke(((barColor[0]*16)+barColor[1]*1),((barColor[2]*16)+barColor[3]*1),((barColor[4]*16)+barColor[5]*1));
             beginShape();
             for (var i = 0; i < bars; i++) {
-                if(i == 0 || i == bars-1){
-                    var x = (fbc_array[i]-threshold);
-                }
-                else{
-                    var x = (((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3)-threshold;
-                }
-                vertex(i * 2750/bars,750-((x)/(255-threshold)))
+                vertex(i * 2750/bars,750-(561*(fbc_array[i]-threshold)/(255-threshold)))
             }
             endShape();
         }
