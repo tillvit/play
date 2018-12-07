@@ -78,7 +78,7 @@ void draw() {
                 else{
                     var x = (((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3)-threshold;
                 }
-                vertex(i * 2750/bars,750-(x)/(255-threshold))
+                vertex(i * 2750/bars,750-((x)/(255-threshold)))
             }
             endShape();
         }
