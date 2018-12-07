@@ -73,12 +73,12 @@ void draw() {
             beginShape();
             for (var i = 0; i < bars; i++) {
                 if(i == 0 || i == bars-1){
-                    var x = (fbc_array[i]);
+                    var x = (fbc_array[i]-threshold);
                 }
                 else{
-                    var x = ((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3;
+                    var x = (((fbc_array[i]) + (fbc_array[i-1]) + (fbc_array[i+1]))/3)-threshold;
                 }
-                vertex(i * 2750/bars,750-(x*2.3)*(threshold/255))
+                vertex(i * 2750/bars,750-(x)/(255-threshold))
             }
             endShape();
         }
