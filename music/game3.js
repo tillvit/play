@@ -41,7 +41,7 @@ void draw() {
     if (fbc_array != undefined) {
         strokeWeight(0);
         noStroke();
-        for (var i = 0; i < bars; i++) {
+        for (var i = 0; i < bars*15; i++) {
             fill(255,255,255);
             noStroke();
             if (style[3] == true) {
