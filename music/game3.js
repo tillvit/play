@@ -41,7 +41,7 @@ void draw() {
     if (fbc_array != undefined) {
         strokeWeight(0);
         noStroke();
-        for (var i = 0; i < numSnoww; i++) {
+        for (var i = 0; i < numSnow; i++) {
             fill(255,255,255);
             noStroke();
             if (style[3] == true) {
