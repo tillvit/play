@@ -107,7 +107,7 @@
 				fbctotal = 0
 				fbcminimum = 256;
 				fbcmaximum = 0;
-				window.webkitRequestAnimationFrame(frameLooper);
+				window.requestAnimationFrame(frameLooper);
 				//Analyze frequencies
 				fbc_array = new Uint8Array(analyser.frequencyBinCount);
 				analyser.getByteFrequencyData(fbc_array);
